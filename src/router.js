@@ -1,27 +1,30 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import HomePage from "./pages/Home";
-import CatalogoFilmes from "./pages/Filme";
-import MeusFilmes from "./pages/MeusFilmes";
-import PageErro from "./pages/Erro";
+function documentPath(pages) {
+  return import(`./pages/${pages}.vue`);
+}
 
 const routes = [
   {
     path: "/",
-    component: HomePage,
+    name: 'HomePage',
+    component: documentPath("Home"),
   },
   {
     path: "/filme/:id",
-    component: CatalogoFilmes,
+    name: 'CatalogoFilmes',
+    component: documentPath("Filme"),
     props: true,
   },
   {
     path: "/salvos",
-    component: MeusFilmes,
+    name: 'MeusFilmes',
+    component: documentPath("MeusFilmes"),
   },
   {
-    path: "*",
-    component: PageErro,
+    path: "/:pathMatch(.*)*",
+    name: 'PageErro',
+    component: documentPath("Erro"),
   },
 ];
 
